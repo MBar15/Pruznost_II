@@ -2,7 +2,7 @@ clc;
 clear all;
 close all;
 
-syms E R Ra Rax q x Iy E fi kk sigmay
+syms E R Ra Rax q x Iy E fi kk sigmay Fd
 
 % pro začátek nevím k čemu je sigmay a mý a jaký vztah je mezi nimi pro
 % sigma dov, a tak je sigma dov pouze sigmay
@@ -12,9 +12,11 @@ b = R*sin(fi);
 
 Mo1 = Ra*a + Rax*b
 dMo1 = diff(Mo1,Rax);
+dMo1Fd = diff(Mo1,Fd);
 
-Mo2 = Ra*(R + x) + Rax*R - q*x^2/2
+Mo2 = Ra*(R + x) + Rax*R - q*x^2/2;
 dMo2 = diff(Mo2,Rax);
+dMo2Fd = diff(Mo2,Fd);
 
 uA = 1/(E*Iy) * (int(Mo1*dMo1*R,fi,0,pi/2) + int(Mo2*dMo2,x,0,R));
 

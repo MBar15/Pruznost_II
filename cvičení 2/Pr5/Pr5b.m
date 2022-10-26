@@ -12,27 +12,27 @@ F = 800;
 Re = 250;
 D1 = 40;
 d1 = 32;
-Wo = pi/D1 * (D1^4-d1^4);
+Wo = pi/(D1*32) * (D1^4-d1^4);
 
 qy1 = q*cos(beta);
 qx1 = q*sin(beta);
 
-Fx1 = F*sin(alfa);
-Fy1 = F*cos(alfa);
+Fy1 = F*sin(alfa);
+Fx1 = F*cos(alfa);
 
 a = R*sin(fi);
 b = R - R*cos(fi);
 c = R*cos(fi);
 d = R + R*sin(fi);
 
-Mo1 = -Fx1 * b - Fy1*a;
+Mo1 = -Fy1 * b - Fx1*a;
 Mo2 = -Fy1*c - Fx1*d;
 Mo3 = -Fx1*2*R + Fy1*x -qy1*x^2/2 + Fp*x
 
 x = 2*R;
 Mo3 = vpa(subs(Mo3),3)
 
-MoA = 200e3 == Mo3
+MoA = 200e3 == Mo3 % popř pro -200e3 je Fp = 214
 
 Fp = vpa(solve(MoA,Fp),3)
 

@@ -15,8 +15,8 @@ dMo2Fcx = diff(Mo2,Fcx);
 dMo1Mc = diff(Mo1,Mc)
 dMo2Mc = diff(Mo2,Mc)
 
-fiC = 0 == 1/(E*Iy) * (int(Mo1*dMo1Mc,x,0,2*l) + int(Mo2*dMo2Mc,x,0,l/2));
-uC = 0 == 1/(E*Iy) * (int(Mo1*dMo1Fcx,x,0,2*l) + int(Mo2*dMo2Fcx,x,0,l/2));
+fiC = 0 == 2/(E*Iy) * (int(Mo1*dMo1Mc,x,0,2*l) + int(Mo2*dMo2Mc,x,0,l/2));
+uC = 0 == 2/(E*Iy) * (int(Mo1*dMo1Fcx,x,0,2*l) + int(Mo2*dMo2Fcx,x,0,l/2));
 
 [Q, Res] = equationsToMatrix([fiC, uC], [Mc, Fcx]);
 

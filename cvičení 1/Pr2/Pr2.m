@@ -30,7 +30,7 @@ Mo2 = subs(Mo2)
 
 fplot(subs(Mo1,q,1),[0,a],'color','red')
 hold on
-fplot(subs(Mo2,q,1),[0, a],'color','blue')
+fplot(subs(Mo2,q,1),[0, 3*a],'color','blue')
 
 Momax = subs(Mo2,q,1);
 dMomax= 0 == diff(Momax,x)

@@ -49,9 +49,7 @@ Mo4 = subs(Mo4);
 %fplot(subs(Mo1,F,1),[0,R],'color','blue');
 %hold on 
 %fplot(subs(Mo2,F,1),[0,pi/2],'color','green');
-%hold on
 %fplot(subs(Mo3,F,1),[0,pi/2],'color','black');
-%hold on
 %fplot(subs(Mo4,F,1),[0,R],'color','red');
 
 Momax = subs(Mo1,x,R);
