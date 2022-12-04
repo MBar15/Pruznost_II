@@ -2,12 +2,12 @@ clc;
 clear all;
 close all
 
-% Osm vrstev nádoby ze stejného materiálu oce 11 600
-% tlak ve vnitr nadoby p
+% Osm vrstev nádoby ze stejného materiálu, ocel 11 600
+% výpočet přesahů, max tlak ve vnitř nádoby pro maximální využití materiálu
 
 syms r r1 r2 r3 r4 r5 r6 r7 r8 r9 A1 A2 A3 A4 A5 A6 A7 A8 B1 B2 B3 B4 B5 B6 B7 B8 p ps2 ps3 ps4 ps5 ps6 ps7 ps8 E mu Re kk delt1 delt2 delt3 delt4 delt5 delt6 delt7 
 
-%------------ rovnice raddíálního a tečného napětí ----------------------
+%------------ rovnice radíálního a tečného napětí ----------------------
 sigmaR1 = A1 + B1/r^2;
 sigmaT1 = A1 - B1/r^2;
 
@@ -32,7 +32,7 @@ sigmaT7 = A7 - B7/r^2;
 sigmaR8 = A8 + B8/r^2;
 sigmaT8 = A8 - B8/r^2;
 
-%------------ rovnice raddiálního napětí ------------------------
+%------------ rovnice radiálního napětí ------------------------
 sigmaR1R1 = subs(sigmaR1,r,r1);
 
 sigmaR1R2 = subs(sigmaR1,r,r2);
@@ -84,7 +84,7 @@ sigmaT8R8 = subs(sigmaT8,r,r8);
 
 
 
-%------------ nevím jak se to nazývá ----------------------
+%------------ zapomněl jsem název této rovnice ----------------------
 sigmaZ1R2 = (sigmaR1R2 + sigmaT1R2)/2
 sigmaZ2R2 = (sigmaR2R2 + sigmaT2R2)/2
 
@@ -183,7 +183,7 @@ r7 = 900;
 r8 = 1000;
 r9 = 1100;
 E = 2.11e5;
-Re = 3/2*600;
+Re = 2/3*600;
 mu = 0.3;
 kk = 1.7;
 
@@ -196,9 +196,9 @@ sol = linsolve(Q, Res)
 
 % ----------- dosazení výsledků
 A1 = vpa(sol(1,1),3)
-B1 = vpa(sol(2,1),3)
-A2 = vpa(sol(3,1),3)
-B2 = vpa(sol(4,1),3)
+B1 = vpa(sol(2,1),3)     
+A2 = vpa(sol(3,1),3)        
+B2 = vpa(sol(4,1),3)        
 A3 = vpa(sol(5,1),3)
 B3 = vpa(sol(6,1),3)
 A4 = vpa(sol(7,1),3)
@@ -229,67 +229,53 @@ p = vpa(sol(31,1),3)
 
 % ------------------- dosazení vypočítaných hodnot --------------------
 
-sigmaR1 = subs(sigmaR1)
-sigmaR2 = subs(sigmaR2)
-sigmaR3 = subs(sigmaR3)
-sigmaR4 = subs(sigmaR4)
-sigmaR5 = subs(sigmaR5)
-sigmaR6 = subs(sigmaR6)
-sigmaR7 = subs(sigmaR7)
-sigmaR8 = subs(sigmaR8)
+sigmaR1 = subs(sigmaR1);
+sigmaR2 = subs(sigmaR2);
+sigmaR3 = subs(sigmaR3);
+sigmaR4 = subs(sigmaR4);
+sigmaR5 = subs(sigmaR5);
+sigmaR6 = subs(sigmaR6);
+sigmaR7 = subs(sigmaR7);
+sigmaR8 = subs(sigmaR8);
 
-sigmaT1 = subs(sigmaT1)
-sigmaT2 = subs(sigmaT2)
-sigmaT3 = subs(sigmaT3)
-sigmaT4 = subs(sigmaT4)
-sigmaT5 = subs(sigmaT5)
-sigmaT6 = subs(sigmaT6)
-sigmaT7 = subs(sigmaT7)
-sigmaT8 = subs(sigmaT8)
+sigmaT1 = subs(sigmaT1);
+sigmaT2 = subs(sigmaT2);
+sigmaT3 = subs(sigmaT3);
+sigmaT4 = subs(sigmaT4);
+sigmaT5 = subs(sigmaT5);
+sigmaT6 = subs(sigmaT6);
+sigmaT7 = subs(sigmaT7);
+sigmaT8 = subs(sigmaT8);
 
-% sigmaZ1 = subs(sigmaZ1)
-% sigmaZ2 = subs(sigmaZ2)
-% sigmaZ3 = subs(sigmaZ3)
-% sigmaZ4 = subs(sigmaZ4)
-% sigmaZ5 = subs(sigmaZ5)
-% sigmaZ6 = subs(sigmaZ6)
-% sigmaZ7 = subs(sigmaZ7)
-% sigmaZ8 = subs(sigmaZ8)
 
+% grafické zobrazení
 
 fplot(sigmaR1,[r1 r2],'color','red')
 hold on
 fplot(sigmaT1,[r1 r2],'color','red')
-%fplot(sigmaZ1,[r1 r2],'color','red')
 
 fplot(sigmaR2,[r2 r3],'color','blue')
 fplot(sigmaT2,[r2 r3],'color','blue')
-%fplot(sigmaZ2,[r2 r3],'color','blue')
+
 
 fplot(sigmaR3,[r3 r4],'color','green')
 fplot(sigmaT3,[r3 r4],'color','green')
-%fplot(sigmaZ3,[r3 r4],'color','green')
 
 fplot(sigmaR4,[r4 r5],'color','black')
 fplot(sigmaT4,[r4 r5],'color','black')
-%fplot(sigmaZ4,[r4 r5],'color','black')
 
 fplot(sigmaR5,[r5 r6],'color','red')
 fplot(sigmaT5,[r5 r6],'color','red')
-%fplot(sigmaZ5,[r5 r6],'color','red')
 
 fplot(sigmaR6,[r6 r7],'color','blue')
 fplot(sigmaT6,[r6 r7],'color','blue')
-%fplot(sigmaZ6,[r6 r7],'color','blue')
 
 fplot(sigmaR7,[r7 r8],'color','green')
 fplot(sigmaT7,[r7 r8],'color','green')
-%fplot(sigmaZ7,[r7 r8],'color','green')
+
 
 fplot(sigmaR8,[r8 r9],'color','black')
 fplot(sigmaT8,[r8 r9],'color','black')
 %fplot(sigmaZ8,[r8 r9],'color','black')
-
-legend('sigmaR','sigmaT')
 
 

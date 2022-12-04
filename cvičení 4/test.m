@@ -1,44 +1,53 @@
-clc;
-clear all;
-close all;
+close all
+clear all
+clc
 
-syms F a M1 Re E d x deltaT alfa S Ra uA
-
-Mo1 = F*x;
-Mo2 = F*(a+x);
-
-Mk1 = 0;
-Mk2 = M1;
-N = deltaT*alfa*E*S;
-
-a = 300;
-F = 500;
-M1 = 500e3;
-Re = 300;
-E = 2.1e5;
-d = 40;
-Wo = pi*(d^3)/32;
-Wk  = pi*(d^3)/16;
-alfa = 12e-6; % v kelvinech na metr
-S = pi*d^2/4;
-kk = 1.6;
-
-
-Mo1 = subs(Mo1);
-Mo2 = subs(Mo2);
-Mk1 = subs(Mk1);
-Mk2 = subs(Mk2);
+syms F S1 S2 DT DN phi G m g  r v h a c d e b
 
 
 
-sigmaNormMax = subs(Mo2,x,a)*32/(pi*d^3) + E*alfa*deltaT;
-Taumax = Mk2*16/(pi*d^3);
 
-sigmaRed = sqrt(sigmaNormMax^2 + 4*Taumax^2)
+a = F*cos(phi) - G*sind(phi)
+v = sqrt((2*r/m)*(F*sind(phi) + G*cosd(phi) - G))
+G = m*g;
+g = 9.81;
+F = 555
+r = 0.35;
+m = 75
+a = 0.45;
+b = 0.25;
+c = 0.1;
+d = 0.2;
+e = 0.15;
 
-deltaTsolved = vpa(solve(sigmaRed == Re/kk),3)
 
-sigmaRed1 = vpa(subs(sigmaRed,deltaT,48.4))
-sigmaRed2 = vpa(subs(sigmaRed,deltaT,-86.3))
+v= subs(v)
 
-% změna teploty <-48,4; 48,4>
+%fplot(v,[0, 74.0568],'color','red')
+%xlabel('Úhel [°]')
+%ylabel('v [m/s]')
+
+
+DT = m*a;
+DN = m*v^2/r
+
+%x = 0 == F-S1*sind(phi) - S2*sind(phi) - DT*cosd(phi) + DN*sind(phi)
+%y = 0 == S1*cosd(phi) + S2*cosd(phi) - G -DN*cosd(phi) + DT*sin(phi)
+%Ma = 0 == F*b/2 - G*a/2 + S1*cosd(phi)*c + S2*cosd(phi)*(c+d) + DT*cosd(phi)*b/2 + DT*sind(phi)*a/2 + DN*sind(phi)*b/2 - DN*cos(phi)*a/2
+
+x = 0 == F - S1*sind(phi) - S2*sind(phi) - DT*cosd(phi) + DN*sind(phi)
+y = 0 == S1*cosd(phi) +S2*cosd(phi) - G -DN*cosd(phi) + DT*sind(phi)
+Ma = 0 == F*b/2 - G*a/2 + S1*cosd(phi)*c + S2*cosd(phi)*(c+d) + DT*cosd(phi)*b/2 + DT*sind(phi)*a/2 + DN*sind(phi)*b/2 - DN*cosd(phi)*a/2
+
+
+[Q Res] = equationsToMatrix([y,Ma], [S1, S2])
+Q = subs(Q)
+Res = subs(Res)
+sol = linsolve(Q,Res)
+S1 = sol(1,1)
+S2 = sol(2,1)
+
+%74.0568
+fplot(S1,[0,90],'color','green')
+hold on
+fplot(S2,[0, 90],'color','blue')

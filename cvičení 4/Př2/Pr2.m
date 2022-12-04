@@ -25,7 +25,7 @@ kk = 1.6;
 
 
 Mo1 = subs(Mo1);
-Mo2 = subs(Mo2);
+Mo2 = subs(Mo2)
 Mk1 = subs(Mk1);
 Mk2 = subs(Mk2);
 
@@ -41,6 +41,10 @@ deltaTsolved = vpa(solve(sigmaRed == Re/kk),3)
 sigmaRed1 = vpa(subs(sigmaRed,deltaT,48.4))
 sigmaRed2 = vpa(subs(sigmaRed,deltaT,-86.3))
 
-% změna teploty <-86,3; 48,4>
+% změna teploty <-48,4; 48,4>
 
+% nutno podotknout znaménka u momentu jsou naopak oproti konvenčnímu značení,
+% a sigma normmax tah-tlak- je záporné ale ono to vyjde že se to sečtě tlak
+% tlak tak bych musel dát abs() je to nakonec dobře ( oba mají stejné
+% znaménko) ale měly by to být trochu jinak zapsané aby to bylo správně 'gramaticky'
 

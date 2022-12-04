@@ -17,7 +17,7 @@ syms fi q Ra x a h b Iy E Re R2 R1 Rax R rho y z
 Mo1 = -q*x^2/2 + Ra*x;
 
 % fi<0,pi/2>
-N2 = -Rax*cos(fi) - Ra*sin(fi) + q*sin(fi);
+N2 = Rax*cos(fi) - Ra*sin(fi) + q*sin(fi);
 T2 = -Ra*sin(fi) +q*cos(fi) + Rax*sin(fi)
 Mo2 = Ra*(a+R2*sin(fi)) - q*a*(a/2+R2*sin(fi)) - Rax*(R2-R2*cos(fi))
 
@@ -49,7 +49,7 @@ t = 2;
 kk = 1.5
 Re = 300;
 E = 2.1e5;
-Iy = 1/12*b*h^2 - 1/12*(b-2*3*t)*(h-2*t)^2;
+Iy = 1/12*b*h^3 - 1/12*(b-2*3*t)*(h-2*t)^3;
 S = b*h-(b-2*3*t)*(h-2*t)
 
 [Q Res] = equationsToMatrix([wA, uA], [Ra, Rax])
@@ -79,9 +79,9 @@ e = vpa(R2 - Rn,3)
 Mo2Max = subs(Mo2,fi,0)
 
 sigma = Mo2Max*z/(S*e*(Rn-z))
-%sigmaN =N2/S
-%sigmaN = subs(sigmaN)
-
+sigmaN =N2/S
+sigmaN = subs(sigmaN,fi,0)
+sigmaN = subs(sigmaN)
 z1 = Ri+h-Rn
 z2 = Ri
 
@@ -92,5 +92,5 @@ hold on
 %max je v 35.50
 
 sigmaMax = subs(sigma,z,35.20)
-rc1 = sigmaMax  == Re/kk
+rc1 = sigmaMax + sigmaN  == Re/kk
 q = solve(rc1,q) % 46.89 zanedbavam vliv normalovych sil, jednat protoze jsem to nestihl a chyba by mela byt mala
