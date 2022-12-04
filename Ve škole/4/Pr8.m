@@ -59,7 +59,8 @@ fiC = 0 == 1/(E*Iy) * (int(Mo1*dMo1Mc*R,phi1,0,pi/2) + int(Mo2*dMo2Mc*R,phi1,0,p
 R = 800;
 %Iy = pi*(d^4)/64;
 q = 15;
-kk = 1,8;
+kk = 1.8;
+Re = 300;
 
 Q = subs(Q);
 Res = subs(Res);
