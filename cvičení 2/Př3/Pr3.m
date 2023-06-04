@@ -14,7 +14,7 @@ dMo1 = diff(Mo1,Rbx);
 Mo2 = -Rax*R*sin(delta) + Ra*(R - R*cos(delta));
 dMo2 = diff(Mo2,Rbx);
 
-wB = 0 == 1/(E*Iy)*(int(Mo1*dMo1*R,delta,0,pi/2)) + int(Mo2*dMo2*R,delta,0,pi/2))
+wB = 0 == 1/(E*Iy)*(int(Mo1*dMo1*R,delta,0,pi/2) + int(Mo2*dMo2*R,delta,0,pi/2))
 
 E = 2.1e5;
 R = 600;

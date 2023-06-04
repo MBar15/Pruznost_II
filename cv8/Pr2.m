@@ -9,14 +9,14 @@ sigmaT = A - B/r^2
 sigmaA = (sigmaR + sigmaT)/2
 
 rc1 = subs(sigmaR,r,r1) == 0
-rc2 = subs(sigmaR,r,r1+t) == -p
+rc2 = subs(sigmaR,r,r2) == -p
 
-r1 = 4000;
+r1 = 4;
 h = 4000;
 rho = 1000;
 g = 9.81;
-p = rho*h*g*1e-6
-Re = 600;
+p = rho*h*g
+Re = 600e6;
 kk = 1.5
 
 
@@ -24,18 +24,18 @@ kk = 1.5
 Q = subs(Q)
 Res = subs(Res)
 sol = linsolve(Q, Res)
-A = vpa(sol(1,1),3)
-B = vpa(sol(2,1),3)
+A = (p*r2^2)/(r1^2 - r2^2)
+B = -(p*r1^2*r2^2)/(r1^2 - r2^2)
 
 sigmaR = subs(sigmaR)
 sigmaT = subs(sigmaT)
 sigmaA = subs(sigmaA)
 
-fplot(subs(sigmaR,t,1000), [r1, r1+1000], 'color','red')
+fplot(subs(sigmaR,r2,1000), [r1, r1+0.5], 'color','red')
 hold on
-fplot(subs(sigmaT,t,1000), [r1, r1+1000], 'color','blue')
-fplot(subs(sigmaA,t,1000), [r1, r1+1000], 'color','black')
+fplot(subs(sigmaT,r2,1000), [r1, r1+0.5], 'color','blue')
+fplot(subs(sigmaA,r2,1000), [r1, r1+0.5], 'color','black')
 
 sigmaMax = subs(sigmaR,r,r1) - subs(sigmaT,r,r1);
 rc2 = sigmaMax == Re/kk
-t = vpa(solve(rc2,t),3)
+r2 = vpa(solve(rc2,r2),3)
